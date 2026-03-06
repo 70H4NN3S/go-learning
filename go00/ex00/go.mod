@@ -1,0 +1,3 @@
+module go00_ex00
+
+go 1.25.0
