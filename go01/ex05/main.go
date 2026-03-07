@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sort"
 	"strings"
+	"unicode"
 )
 
 func main() {
@@ -16,10 +17,11 @@ func wordCounter(str string) {
 	count := map[string]int{}
 	lower := strings.ToLower(str)
 
-	cleaned := strings.ReplaceAll(lower, ".", "")
-	split := strings.Split(cleaned, " ")
+	words := strings.FieldsFunc(lower, func(r rune) bool {
+		return !unicode.IsLetter(r) && !unicode.IsDigit(r)
+	})
 
-	for _, word := range split {
+	for _, word := range words {
 		count[word]++
 	}
 
