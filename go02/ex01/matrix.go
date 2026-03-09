@@ -15,6 +15,19 @@ func NewMatrix(rows, cols int) [][]float64 {
 	return m
 }
 
+func Transpose(m [][]float64) [][]float64 {
+	tRows := len(m[0])
+	tCols := len(m)
+	t := NewMatrix(tRows, tCols)
+
+	for i := range m {
+		for j := range m[i] {
+			t[j][i] = m[i][j]
+		}
+	}
+	return t
+}
+
 func PrintMatrix(m [][]float64) {
 	for range m[0] {
 		fmt.Print("--")
