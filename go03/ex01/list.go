@@ -29,3 +29,10 @@ func (ll *List) Pop() (int, bool) {
 	ll.size--
 	return val, true
 }
+
+func (ll List) Peek() (int, bool) {
+	if ll.size == 0 {
+		return 0, false
+	}
+	return ll.Head.Val, true
+}
