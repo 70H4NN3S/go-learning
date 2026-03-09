@@ -16,4 +16,16 @@ func (ll *List) Push(val int) {
 		node.Next = ll.Head
 	}
 	ll.Head = &node
+	ll.size++
+}
+
+func (ll *List) Pop() (int, bool) {
+	if ll.size == 0 {
+		return 0, false
+	}
+	nextHead := ll.Head.Next
+	val := ll.Head.Val
+	ll.Head = nextHead
+	ll.size--
+	return val, true
 }
