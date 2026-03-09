@@ -1,5 +1,7 @@
 package main
 
+import "strconv"
+
 type Node struct {
 	Val  int
 	Next *Node
@@ -39,4 +41,18 @@ func (ll List) Peek() (int, bool) {
 
 func (ll List) Len() int {
 	return ll.size
+}
+
+func (ll List) String() string {
+	if ll.Head == nil {
+		return "nil"
+	}
+	return strconv.Itoa(ll.Head.Val) + stringRecursive(*ll.Head.Next)
+}
+
+func stringRecursive(n Node) string {
+	if n.Next == nil {
+		return " -> nil"
+	}
+	return " -> " + strconv.Itoa(n.Val) + stringRecursive(*n.Next)
 }
