@@ -36,16 +36,13 @@ func Lookup(name string) []string {
 }
 
 func ListAll() {
-	keys := make([]string, len(phoneBook))
+	keys := make([]string, 0, len(phoneBook))
 	for contact := range phoneBook {
 		keys = append(keys, contact)
 	}
 	sort.Strings(keys)
 	fmt.Println("------------")
 	for _, contact := range keys {
-		if contact == "" {
-			continue
-		}
 		fmt.Println(contact, phoneBook[contact])
 	}
 	fmt.Println("-----------")
