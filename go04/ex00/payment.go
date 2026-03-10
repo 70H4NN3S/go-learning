@@ -27,7 +27,7 @@ type Crypto struct {
 
 func (c *CreditCard) Pay(amount float64) error {
 	if amount > c.Balance {
-		return errors.New("Not enough balance in the credit card")
+		return errors.New("not enough balance in the credit card")
 	}
 	c.Balance -= amount
 	return nil
@@ -44,4 +44,11 @@ func (b BankTransfer) String() string {
 
 func (c *Crypto) Pay(amount float64) error {
 	return nil
+}
+
+func ProcessPayment(p Payer, amount float64) {
+	err := p.Pay(amount)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 }
