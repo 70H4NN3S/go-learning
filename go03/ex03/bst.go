@@ -53,3 +53,29 @@ func (b BST) Search(val int) bool {
 	}
 	return false
 }
+
+func (b BST) ToSlice() []int {
+	result := make([]int, 0)
+	stack := make([]TreeNode, b.Root.Val)
+
+	for n := b.Root; len(stack) != 0; {
+		if n.Left != nil {
+			stack = append(stack, *n.Left)
+			n.Left = nil
+			n = &stack[len(stack)-1]
+			continue
+		} else if n.Right != nil {
+			result = append(result, n.Val)
+			stack = stack[:len(stack)-1]
+			stack = append(stack, *n.Right)
+			n.Right = nil
+			n = &stack[len(stack)-1]
+			continue
+		} else {
+			result = append(result, n.Val)
+			stack = stack[:len(stack)-1]
+			n = &stack[len(stack)-1]
+		}
+	}
+	return result
+}
