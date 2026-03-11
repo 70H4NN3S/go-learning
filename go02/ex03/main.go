@@ -6,7 +6,18 @@ import (
 
 func main() {
 	a := []int{123, 1, 12, 43}
+	b := []int{}
+	c := []int{-12, 34, -43, 0}
+	d := []int{312312, 12332, 123123, 54345, 23432, -234234, 0}
+
+	fmt.Println("Normal case:")
 	histogram(a)
+	fmt.Println("Empty slice:")
+	histogram(b)
+	fmt.Println("Negative numbers:")
+	histogram(c)
+	fmt.Println("Huge numbers with negatives and zero:")
+	histogram(d)
 }
 
 func histogram(bars []int) {
