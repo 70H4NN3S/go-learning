@@ -41,7 +41,7 @@ func (b BST) Search(val int) bool {
 			return true
 		} else if n.Val > val {
 			n = n.Left
-		} else if n.Val < val {
+		} else {
 			n = n.Right
 		}
 	}
