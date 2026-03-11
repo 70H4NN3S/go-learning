@@ -11,28 +11,24 @@ type BST struct {
 }
 
 func (b *BST) Insert(val int) {
-	if val == b.Root.Val {
-		return
-	}
 	if b.Root == nil {
 		b.Root = &TreeNode{val, nil, nil}
+		return
 	}
 
-	for n := b.Root; true; {
+	for n := b.Root; ; {
 		if n.Val == val {
-			break
-		}
-		if n.Val > val {
+			return
+		} else if n.Val > val {
 			if n.Left == nil {
 				n.Left = &TreeNode{val, nil, nil}
-				break
+				return
 			}
 			n = n.Left
-		}
-		if n.Val < val {
+		} else {
 			if n.Right == nil {
 				n.Right = &TreeNode{val, nil, nil}
-				break
+				return
 			}
 			n = n.Right
 		}
@@ -43,11 +39,9 @@ func (b BST) Search(val int) bool {
 	for n := b.Root; n != nil; {
 		if n.Val == val {
 			return true
-		}
-		if n.Val > val {
+		} else if n.Val > val {
 			n = n.Left
-		}
-		if n.Val < val {
+		} else if n.Val < val {
 			n = n.Right
 		}
 	}
@@ -56,7 +50,7 @@ func (b BST) Search(val int) bool {
 
 func (b BST) ToSlice() []int {
 	result := make([]int, 0)
-	stack := make([]TreeNode, b.Root.Val)
+	stack := []TreeNode{*b.Root}
 
 	for n := b.Root; len(stack) != 0; {
 		if n.Left != nil {
@@ -74,6 +68,9 @@ func (b BST) ToSlice() []int {
 		} else {
 			result = append(result, n.Val)
 			stack = stack[:len(stack)-1]
+			if len(stack) == 0 {
+				break
+			}
 			n = &stack[len(stack)-1]
 		}
 	}
