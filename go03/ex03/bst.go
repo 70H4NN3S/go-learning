@@ -50,29 +50,21 @@ func (b BST) Search(val int) bool {
 
 func (b BST) ToSlice() []int {
 	result := make([]int, 0)
-	stack := []TreeNode{*b.Root}
+	stack := make([]*TreeNode, 0)
+	n := b.Root
 
-	for n := b.Root; len(stack) != 0; {
-		if n.Left != nil {
-			stack = append(stack, *n.Left)
-			n.Left = nil
-			n = &stack[len(stack)-1]
-			continue
-		} else if n.Right != nil {
-			result = append(result, n.Val)
-			stack = stack[:len(stack)-1]
-			stack = append(stack, *n.Right)
-			n.Right = nil
-			n = &stack[len(stack)-1]
-			continue
-		} else {
-			result = append(result, n.Val)
-			stack = stack[:len(stack)-1]
-			if len(stack) == 0 {
-				break
-			}
-			n = &stack[len(stack)-1]
+	for n != nil || len(stack) != 0 {
+		// walk all the way left, pushing nodes as we go
+		for n != nil {
+			stack = append(stack, n)
+			n = n.Left
 		}
+		// visit the node on top of the stack
+		n = stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		result = append(result, n.Val)
+		// now explore it's right subtree
+		n = n.Right
 	}
 	return result
 }
