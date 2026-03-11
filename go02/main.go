@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sort"
+	"strings"
 )
 
 func main() {
@@ -17,8 +18,13 @@ func main() {
 func GroupAnagrams(words []string) map[string][]string {
 	anagram := make(map[string][]string)
 	for _, word := range words {
-		soredWord := sortStrings(word)
-		anagram[soredWord] = append(anagram[soredWord], word)
+		trimmed := strings.TrimSpace(word)
+		lower := strings.ToLower(trimmed)
+		sortedWord := sortStrings(lower)
+		if trimmed == "" {
+			continue
+		}
+		anagram[sortedWord] = append(anagram[sortedWord], trimmed)
 	}
 	return anagram
 }
