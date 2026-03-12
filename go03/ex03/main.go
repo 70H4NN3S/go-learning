@@ -16,4 +16,9 @@ func main() {
 	fmt.Println("In Order: ", bST.InOrder())
 	fmt.Println("Pre Order: ", bST.PreOrder())
 	fmt.Println("Post Order: ", bST.PostOrder())
+	fmt.Println("Height: ", bST.Height())
+	fmt.Println("Is a BST: ", bST.IsBST())
+	fmt.Println("Is Balanced: ", bST.IsBalanced())
+	fmt.Println("Search for -5: ", bST.Search(-5))
+	fmt.Println("Search for 5: ", bST.Search(5))
 }
