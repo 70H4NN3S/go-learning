@@ -148,3 +148,19 @@ func recursiveIsBalancedCheck(node *TreeNode) int {
 		return 1 + leftSide
 	}
 }
+
+func (b BST) Height() int {
+	return recursiveHeight(b.Root)
+}
+
+func recursiveHeight(node *TreeNode) int {
+	if node == nil {
+		return 0
+	}
+	leftSide := recursiveHeight(node.Left)
+	rightSide := recursiveHeight(node.Right)
+	if leftSide > rightSide {
+		return 1 + leftSide
+	}
+	return 1 + rightSide
+}
