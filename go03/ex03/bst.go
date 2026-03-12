@@ -116,3 +116,35 @@ func (b BST) PostOrder() []int {
 	}
 	return result
 }
+
+func (b BST) IsBalanced() bool {
+	result := recursiveIsBalancedCheck(b.Root)
+
+	return result != -1
+}
+
+func recursiveIsBalancedCheck(node *TreeNode) int {
+	if node == nil {
+		return 0
+	}
+	leftSide := recursiveIsBalancedCheck(node.Left)
+	if leftSide == -1 {
+		return -1
+	}
+	rightSide := recursiveIsBalancedCheck(node.Right)
+	if rightSide == -1 {
+		return -1
+	}
+
+	if rightSide > leftSide {
+		if rightSide-leftSide > 1 {
+			return -1
+		}
+		return 1 + rightSide
+	} else {
+		if leftSide-rightSide > 1 {
+			return -1
+		}
+		return 1 + leftSide
+	}
+}
