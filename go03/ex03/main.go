@@ -13,6 +13,10 @@ func main() {
 	bST.Insert(8)
 	bST.Insert(7)
 
+	printStats(bST)
+}
+
+func printStats(bST BST) {
 	fmt.Println("In Order: ", bST.InOrder())
 	fmt.Println("Pre Order: ", bST.PreOrder())
 	fmt.Println("Post Order: ", bST.PostOrder())
@@ -20,5 +24,4 @@ func main() {
 	fmt.Println("Is a BST: ", bST.IsBST())
 	fmt.Println("Is Balanced: ", bST.IsBalanced())
 	fmt.Println("Search for -5: ", bST.Search(-5))
-	fmt.Println("Search for 5: ", bST.Search(5))
 }
