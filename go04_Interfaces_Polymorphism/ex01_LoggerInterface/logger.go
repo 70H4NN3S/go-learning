@@ -22,9 +22,7 @@ type MultiLogger struct {
 }
 
 func (ConsoleLogger) Log(level, message string) {
-	t := time.Now()
-	fmt.Fprint(os.Stdout, t.Format("2006-01-02 15:04:05"),
-		strings.ToUpper(level), message)
+	fmt.Printf("%s [%s] %s\n", time.Now().Format("2006-01-02 15:04:05"), level, message)
 }
 
 func (f FileLogger) Log(level, message string) {
