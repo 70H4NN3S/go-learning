@@ -50,7 +50,7 @@ type WordCountReader struct {
 	inWord bool
 }
 
-func (w WordCountReader) Read(p []byte) (n int, err error) {
+func (w *WordCountReader) Read(p []byte) (n int, err error) {
 	n, err = w.inner.Read(p)
 	for i := 0; i < n; i++ {
 		isSpace := unicode.IsSpace(rune(p[i]))
