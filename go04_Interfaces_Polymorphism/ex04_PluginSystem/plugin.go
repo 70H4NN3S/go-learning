@@ -36,3 +36,15 @@ func (r *Registry) Execute(input string) error {
 	}
 	return fmt.Errorf("the command %s doesn't exists", name)
 }
+
+type Echo struct{}
+
+func (e Echo) Name() string { return "echo" }
+func (e Echo) Help() string { return "echo <text> - prints the text" }
+func (e Echo) Run(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("only one argument is allowed")
+	}
+	fmt.Println(args[0])
+	return nil
+}
