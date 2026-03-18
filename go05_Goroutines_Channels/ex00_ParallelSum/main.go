@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"os"
 	"strconv"
+	"sync"
 	"time"
 )
 
@@ -36,5 +37,40 @@ func SyncSum(arr []int) {
 	fmt.Println(sum)
 }
 
-func AsyncSum(arr []int, amountThreads int) {
+func AsyncSum(arr []int, threads int) {
+	size := len(arr) / threads
+	ch := make(chan int, threads)
+	var wg sync.WaitGroup
+	sum := 0
+	i := 0
+	for ; i < threads-1; i++ {
+		wg.Add(1)
+		go func(subArr []int) {
+			defer wg.Done()
+			s := 0
+			for _, n := range subArr {
+				s += n
+			}
+			ch <- s
+		}(arr[i*size : (i+1)*size])
+	}
+	wg.Add(1)
+	go func(subArr []int) {
+		defer wg.Done()
+		s := 0
+		for _, n := range subArr {
+			s += n
+		}
+		ch <- s
+	}(arr[i*size:])
+
+	go func() {
+		wg.Wait()
+		close(ch)
+	}()
+	for pSum := range ch {
+		sum += pSum
+	}
+	fmt.Println("Async SUM: ")
+	fmt.Println(sum)
 }
