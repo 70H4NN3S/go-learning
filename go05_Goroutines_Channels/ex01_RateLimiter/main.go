@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -30,7 +31,7 @@ func (r *RateLimiter) Wait() {
 
 func (r *RateLimiter) Increment() {
 	for {
-		time.Sleep(time.Second)
+		time.Sleep(1 * time.Second)
 		r.mu.Lock()
 		r.capacity += int(r.refill)
 		r.mu.Unlock()
@@ -39,10 +40,17 @@ func (r *RateLimiter) Increment() {
 
 func (r *RateLimiter) Request() {
 	if !r.Allow() {
+		fmt.Println("waiting...")
 		r.Wait()
 	}
+	fmt.Println("requesting....")
 	r.capacity--
 }
 
 func main() {
+	r := NewRateLimiter(5, 10)
+	go r.Increment()
+	for range 20 {
+		r.Request()
+	}
 }
