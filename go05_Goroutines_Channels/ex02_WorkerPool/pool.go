@@ -17,15 +17,15 @@ type Result struct {
 
 type Pool struct {
 	Input     chan Job
-	Result    chan Result
+	Output    chan Result
 	wg        sync.WaitGroup
 	processor func(Job) Result
 }
 
 func NewPool(workers int, processor func(Job) Result) *Pool {
 	input := make(chan Job, 5)
-	result := make(chan Result, 5)
-	p := &Pool{input, result, sync.WaitGroup{}, processor}
+	output := make(chan Result, 5)
+	p := &Pool{input, output, sync.WaitGroup{}, processor}
 
 	for range workers {
 		p.wg.Add(1)
@@ -38,7 +38,7 @@ func (p *Pool) Worker() {
 	defer p.wg.Done()
 	for job := range p.Input {
 		result := p.processor(job)
-		p.Result <- result
+		p.Output <- result
 	}
 }
 
@@ -46,12 +46,12 @@ func (p *Pool) Submit(job Job) {
 	p.Input <- job
 }
 
-func Results() <-chan Result {
-	return nil
+func (p *Pool) Results() <-chan Result {
+	return p.Output
 }
 
 func (p *Pool) Stop() {
 	close(p.Input)
 	p.wg.Wait()
-	close(p.Result)
+	close(p.Output)
 }
