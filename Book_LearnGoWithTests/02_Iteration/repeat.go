@@ -1,9 +1,12 @@
 // Package iteration shows basic usage of iteration in golang
 package iteration
 
-func Repeat(str string) (result string) {
+import "strings"
+
+func Repeat(str string) string {
+	var repeated strings.Builder
 	for range 5 {
-		result += str
+		repeated.WriteString(str)
 	}
-	return
+	return repeated.String()
 }
