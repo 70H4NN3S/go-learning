@@ -3,9 +3,9 @@ package iteration
 
 import "strings"
 
-func Repeat(str string) string {
+func Repeat(str string, repeat int) string {
 	var repeated strings.Builder
-	for range 5 {
+	for range repeat {
 		repeated.WriteString(str)
 	}
 	return repeated.String()
