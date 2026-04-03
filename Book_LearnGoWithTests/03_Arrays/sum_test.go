@@ -66,6 +66,26 @@ func TestSumAll(t *testing.T) {
 	})
 }
 
+func TestSumAllTails(t *testing.T) {
+	t.Run("normal case", func(t *testing.T) {
+		got := SumAllTails([]int{1, 2, 3}, []int{2, 3, 4}, []int{6, 7, 8})
+		want := []int{5, 7, 15}
+
+		if !slices.Equal(got, want) {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+
+	t.Run("one item slices and empty slices", func(t *testing.T) {
+		got := SumAllTails([]int{}, []int{8}, []int{2, 3})
+		want := []int{0, 0, 3}
+
+		if !slices.Equal(got, want) {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+}
+
 func BenchmarkSum(b *testing.B) {
 	numbers := []int{123, 234, 345, 456, 654}
 	b.ReportAllocs()

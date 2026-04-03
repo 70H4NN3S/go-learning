@@ -24,3 +24,14 @@ func SumAll(numbersToSum ...[]int) []int {
 	}
 	return result
 }
+
+func SumAllTails(numbersToSum ...[]int) []int {
+	result := make([]int, len(numbersToSum))
+
+	for i, slice := range numbersToSum {
+		for j := 1; j < len(slice); j++ {
+			result[i] += slice[j]
+		}
+	}
+	return result
+}
