@@ -14,3 +14,13 @@ func SumAllInOne(numbersToSum ...[]int) (result int) {
 	}
 	return
 }
+
+func SumAll(numbersToSum ...[]int) []int {
+	result := make([]int, len(numbersToSum))
+
+	for i, slice := range numbersToSum {
+		sum := Sum(slice)
+		result[i] = sum
+	}
+	return result
+}

@@ -39,6 +39,52 @@ func TestSumAllInOne(t *testing.T) {
 	})
 }
 
+func TestSumAll(t *testing.T) {
+	t.Run("single slice", func(t *testing.T) {
+		numbers := []int{1, 2, 3}
+
+		got := SumAll(numbers)
+		want := []int{6}
+		equal := true
+		if len(got) != len(want) {
+			equal = false
+		} else {
+			for i := range got {
+				if got[i] != want[i] {
+					equal = false
+					break
+				}
+			}
+		}
+		if !equal {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+
+	t.Run("multiple slices", func(t *testing.T) {
+		num1 := []int{1, 2, 3}
+		num2 := []int{4, 5}
+		num3 := []int{6, 7, 8}
+
+		got := SumAll(num1, num2, num3)
+		want := []int{6, 9, 21}
+		equal := true
+		if len(got) != len(want) {
+			equal = false
+		} else {
+			for i := range got {
+				if got[i] != want[i] {
+					equal = false
+					break
+				}
+			}
+		}
+		if !equal {
+			t.Errorf("got %v want %v", got, want)
+		}
+	})
+}
+
 func BenchmarkSum(b *testing.B) {
 	numbers := []int{123, 234, 345, 456, 654}
 	b.ReportAllocs()
