@@ -93,3 +93,10 @@ func BenchmarkSum(b *testing.B) {
 		Sum(numbers)
 	}
 }
+
+func BenchmarkSumAllTails(b *testing.B) {
+	b.ReportAllocs()
+	for b.Loop() {
+		SumAllTails([]int{1, 2, 3}, []int{}, []int{0, 9})
+	}
+}
