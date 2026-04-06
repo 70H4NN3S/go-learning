@@ -12,6 +12,10 @@ func TestWallet(t *testing.T) {
 			t.Errorf("got %s want %s", got, want)
 		}
 	}
+	t.Run("balance", func(t *testing.T) {
+		assertBalance(t, Wallet{balance: Bitcoin(10)}, Bitcoin(10))
+	})
+
 	t.Run("deposit", func(t *testing.T) {
 		wallet := Wallet{}
 		wallet.Deposit(10)
